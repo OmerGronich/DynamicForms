@@ -14,36 +14,13 @@ import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@
     }]
 })
 export class DynamicSectionComponent implements ControlValueAccessor {
-    
-    registerOnChange(fn: any): void {
-        this.change = fn;
-    }
-    
-    registerOnTouched(fn: any): void {
-        this.touch = fn;
-    }
-    
-    setDisabledState(isDisabled: boolean): void {
-    }
-    
     _model = {};
     
-    change: any = () => {
-    };
-    
-    touch: any = () => {
-    };
-    
-    set model(val) {  // this value is updated by programmatic changes if( val !== undefined && this.val !== val){
+    set model(val) {
         this._model = val;
         this.change(val);
         this.touch(val);
     }
-    
-    writeValue(val: any): void {
-        this.model = val;
-    }
-    
     
     FieldTypes = FieldTypes;
     
@@ -78,6 +55,27 @@ export class DynamicSectionComponent implements ControlValueAccessor {
         //     return field;
         // });
         // this.section.valueChanges.subscribe(val => console.log(val));
+    }
+    
+    writeValue(val: any): void {
+        this.model = val;
+    }
+    
+    change: any = () => {
+    };
+    
+    touch: any = () => {
+    };
+    
+    registerOnChange(fn: any): void {
+        this.change = fn;
+    }
+    
+    registerOnTouched(fn: any): void {
+        this.touch = fn;
+    }
+    
+    setDisabledState(isDisabled: boolean): void {
     }
     
 }
