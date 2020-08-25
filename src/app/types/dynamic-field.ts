@@ -4,7 +4,7 @@ import {ValidatorFn} from '@angular/forms';
 export interface IDynamicField {
     type: FieldTypes
     propertyName: string
-    placeholder?: string
     label: string
+    placeholder?: string
     validators?: ValidatorFn[]
 }

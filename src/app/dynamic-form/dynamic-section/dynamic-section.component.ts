@@ -1,7 +1,7 @@
-import {FieldTypes}                                                      from '../../types/field-types';
-import {IDynamicSection}                                                 from '../../types/dynamic-section';
-import {Component, forwardRef, HostBinding, Input}                       from '@angular/core';
-import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {FieldTypes}                                                                  from '../../types/field-types';
+import {IDynamicSection}                                                             from '../../types/dynamic-section';
+import {Component, forwardRef, Input}                                                from '@angular/core';
+import {ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 
 @Component({
     selector   : 'dyn-dynamic-section',
@@ -34,17 +34,20 @@ export class DynamicSectionComponent implements ControlValueAccessor {
     
     ngOnInit(): void {
         
-        this.formGroup = new FormGroup(this.section.fields.reduce((prev, curr) => {
+        const fields = this.section.fields.reduce((prev, curr) => {
             
-            prev[curr.propertyName] = new FormControl('');
+            prev[curr.propertyName] = new FormControl('', curr.validators || []);
             
             return prev;
-        }, {}));
+        }, {});
+        
+        this.formGroup = new FormGroup(fields);
         
         this.formGroup.valueChanges.subscribe(model => {
             this.model = model;
         });
         
+        //region Might be useful
         // this.fields = Object.entries(this.section.controls).map((entry) => {
         //     const field        = {},
         //           propertyName = entry[0],
@@ -54,7 +57,7 @@ export class DynamicSectionComponent implements ControlValueAccessor {
         //
         //     return field;
         // });
-        // this.section.valueChanges.subscribe(val => console.log(val));
+        //endregion
     }
     
     writeValue(val: any): void {

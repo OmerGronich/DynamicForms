@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FieldTypes}        from '../../types/field-types';
 import {IDynamicForm}      from '../../types/dynamic-form';
 import {IUser}             from '../../types/user';
+import {Validators}        from '@angular/forms';
 
 @Component({
     selector   : 'dyn-user-form',
@@ -14,7 +15,7 @@ export class UserFormComponent implements OnInit {
         favoriteColor: '',
         firstName    : '',
         lastName     : '',
-        age          : 24
+        age          : 0
     };
     
     constructor() {
@@ -32,19 +33,22 @@ export class UserFormComponent implements OnInit {
                         type        : FieldTypes.Text,
                         propertyName: 'firstName',
                         placeholder : 'Enter your first name',
-                        label       : 'First Name'
+                        label       : 'First Name',
+                        validators  : [Validators.required, Validators.minLength(2), Validators.maxLength(10)]
                     },
                     {
                         type        : FieldTypes.Text,
                         propertyName: 'lastName',
                         placeholder : 'Enter your last name',
-                        label       : 'Last Name'
+                        label       : 'Last Name',
+                        validators  : [Validators.required, Validators.minLength(2), Validators.maxLength(10)]
                     },
                     {
-                        type        : FieldTypes.Number,
+                        type        : FieldTypes.Text,
                         propertyName: 'age',
                         placeholder : 'Enter your age',
-                        label       : 'Age'
+                        label       : 'Age',
+                        validators  : [Validators.required, Validators.min(18)]
                     },
                     {
                         type        : FieldTypes.Color,

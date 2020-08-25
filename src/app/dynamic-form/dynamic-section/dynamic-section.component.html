@@ -26,6 +26,9 @@
 				</div>
 			</ng-container>
 		</ng-container>
-	
 	</form>
 </div>
+
+First Name: {{formGroup.controls['firstName'].errors || '👍' | json}} <br/>
+Last Name: {{formGroup.controls['lastName'].errors || '👍' | json}} <br/>
+Age: {{formGroup.controls['age'].errors || '👍' | json}} <br/>
