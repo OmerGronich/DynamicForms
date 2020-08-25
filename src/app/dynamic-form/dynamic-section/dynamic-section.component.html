@@ -1,0 +1,31 @@
+<div class="dyn-form-section">
+	<h3 class="section-title">{{section.title}}</h3>
+	<form
+			[formGroup]="formGroup"
+	>
+		<ng-container
+				*ngFor="let field of section.fields"
+		>
+			<ng-container
+					[ngSwitch]="field.type"
+			>
+				<div
+						*ngSwitchCase="FieldTypes.Text"
+						class="dyn-field">
+					<input type="text" [placeholder]="field.placeholder" [formControlName]="field.propertyName">
+				</div>
+				<div
+						*ngSwitchCase="FieldTypes.Number"
+						class="dyn-field">
+					<input type="number" [placeholder]="field.placeholder" [formControlName]="field.propertyName">
+				</div>
+				<div
+						*ngSwitchCase="FieldTypes.Color"
+						class="dyn-field">
+					<input type="color" [placeholder]="field.placeholder" [formControlName]="field.propertyName">
+				</div>
+			</ng-container>
+		</ng-container>
+	
+	</form>
+</div>
